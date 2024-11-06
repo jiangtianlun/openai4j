@@ -3,10 +3,13 @@ package dev.ai4j.openai4j.image;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.net.URI;
 import java.util.List;
@@ -16,13 +19,15 @@ import java.util.Objects;
  * Represents the response from the OpenAI DALL·E API when generating images.
  * Find description of parameters <a href="https://platform.openai.com/docs/api-reference/images/object">here</a>.
  */
-@JsonDeserialize(builder = GenerateImagesResponse.Builder.class)
+@Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+@NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class GenerateImagesResponse {
 
     @JsonProperty
-    private final List<ImageData> data;
+    private  List<ImageData> data;
 
     public GenerateImagesResponse(Builder builder) {
         this.data = builder.data;
@@ -56,7 +61,7 @@ public class GenerateImagesResponse {
 
     @JsonPOJOBuilder(withPrefix = "")
     @JsonIgnoreProperties(ignoreUnknown = true)
-    @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+    @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
     public static class Builder {
 
         private List<ImageData> data;

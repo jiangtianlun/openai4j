@@ -4,38 +4,43 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Objects;
 
-@JsonDeserialize(builder = Categories.Builder.class)
+@Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+@NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public final class Categories {
 
     @JsonProperty
-    private final Boolean hate;
+    private  Boolean hate;
 
     @JsonProperty("hate/threatening")
-    private final Boolean hateThreatening;
+    private  Boolean hateThreatening;
 
     @JsonProperty("self-harm")
-    private final Boolean selfHarm;
+    private  Boolean selfHarm;
 
     @JsonProperty
-    private final Boolean sexual;
+    private  Boolean sexual;
 
     @JsonProperty("sexual/minors")
-    private final Boolean sexualMinors;
+    private  Boolean sexualMinors;
 
     @JsonProperty
-    private final Boolean violence;
+    private  Boolean violence;
 
     @JsonProperty("violence/graphic")
-    private final Boolean violenceGraphic;
+    private  Boolean violenceGraphic;
 
     private Categories(Builder builder) {
         this.hate = builder.hate;
@@ -124,7 +129,7 @@ public final class Categories {
 
     @JsonPOJOBuilder(withPrefix = "")
     @JsonIgnoreProperties(ignoreUnknown = true)
-    @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+    @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
     public static final class Builder {
 
         private Boolean hate;

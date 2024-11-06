@@ -3,25 +3,30 @@ package dev.ai4j.openai4j.image;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.net.URI;
 import java.util.Objects;
 
-@JsonDeserialize(builder = ImageData.Builder.class)
+@Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+@NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ImageData {
 
     @JsonProperty
     private URI url;
     @JsonProperty
-    private final String b64Json;
+    private  String b64Json;
     @JsonProperty
-    private final String revisedPrompt;
+    private  String revisedPrompt;
 
     private ImageData(Builder builder) {
         url = builder.url;
@@ -85,7 +90,7 @@ public class ImageData {
 
     @JsonPOJOBuilder(withPrefix = "")
     @JsonIgnoreProperties(ignoreUnknown = true)
-    @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+    @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
     public static class Builder {
 
         private URI url;

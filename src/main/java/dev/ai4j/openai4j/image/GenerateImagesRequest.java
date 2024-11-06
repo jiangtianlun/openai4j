@@ -3,10 +3,13 @@ package dev.ai4j.openai4j.image;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import static dev.ai4j.openai4j.image.ImageModel.DALL_E_3;
 import static dev.ai4j.openai4j.image.ImageModel.DALL_E_RESPONSE_FORMAT_URL;
@@ -17,27 +20,29 @@ import java.util.Objects;
  * Represents the request from the OpenAI DALL·E API when generating images.
  * Find description of parameters <a href="https://platform.openai.com/docs/api-reference/images/create">here</a>.
  */
-@JsonDeserialize(builder = GenerateImagesRequest.Builder.class)
+@Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+@NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class GenerateImagesRequest {
 
     @JsonProperty
-    private final String model;
+    private  String model;
     @JsonProperty
-    private final String prompt;
+    private  String prompt;
     @JsonProperty
-    private final int n;
+    private  int n;
     @JsonProperty
-    private final String size;
+    private  String size;
     @JsonProperty
-    private final String quality;
+    private  String quality;
     @JsonProperty
-    private final String style;
+    private  String style;
     @JsonProperty
-    private final String user;
+    private  String user;
     @JsonProperty
-    private final String responseFormat;
+    private  String responseFormat;
 
     private GenerateImagesRequest(Builder builder) {
         this.model = builder.model.toString();
@@ -92,7 +97,7 @@ public class GenerateImagesRequest {
 
     @JsonPOJOBuilder(withPrefix = "")
     @JsonIgnoreProperties(ignoreUnknown = true)
-    @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+    @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
     public static class Builder {
 
         private String model = DALL_E_3.toString();

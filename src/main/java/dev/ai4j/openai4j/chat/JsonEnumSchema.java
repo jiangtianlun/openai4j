@@ -3,10 +3,13 @@ package dev.ai4j.openai4j.chat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,15 +18,17 @@ import java.util.Objects;
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toList;
 
-@JsonDeserialize(builder = JsonEnumSchema.Builder.class)
+@Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+@NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class JsonEnumSchema extends JsonSchemaElement {
 
     @JsonProperty
-    private final String description;
+    private  String description;
     @JsonProperty("enum")
-    private final List<String> enumValues;
+    private  List<String> enumValues;
 
     public JsonEnumSchema(Builder builder) {
         super("string");
@@ -65,7 +70,7 @@ public class JsonEnumSchema extends JsonSchemaElement {
 
     @JsonPOJOBuilder(withPrefix = "")
     @JsonIgnoreProperties(ignoreUnknown = true)
-    @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+    @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
     public static class Builder {
 
         private String description;

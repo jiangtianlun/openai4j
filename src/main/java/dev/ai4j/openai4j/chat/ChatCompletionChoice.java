@@ -3,26 +3,32 @@ package dev.ai4j.openai4j.chat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import jdk.jfr.DataAmount;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Objects;
 
-@JsonDeserialize(builder = ChatCompletionChoice.Builder.class)
+@Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+@NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public final class ChatCompletionChoice {
 
     @JsonProperty
-    private final Integer index;
+    private  Integer index;
     @JsonProperty
-    private final AssistantMessage message;
+    private  AssistantMessage message;
     @JsonProperty
-    private final Delta delta;
+    private  Delta delta;
     @JsonProperty
-    private final String finishReason;
+    private  String finishReason;
 
     private ChatCompletionChoice(Builder builder) {
         this.index = builder.index;
@@ -87,7 +93,7 @@ public final class ChatCompletionChoice {
 
     @JsonPOJOBuilder(withPrefix = "")
     @JsonIgnoreProperties(ignoreUnknown = true)
-    @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+    @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
     public static final class Builder {
 
         private Integer index;

@@ -3,26 +3,30 @@ package dev.ai4j.openai4j.chat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Objects;
 
 import static dev.ai4j.openai4j.chat.Role.SYSTEM;
 
-@JsonDeserialize(builder = SystemMessage.Builder.class)
+@Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+@NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public final class SystemMessage implements Message {
 
     @JsonProperty
-    private final Role role = SYSTEM;
+    private  Role role = SYSTEM;
     @JsonProperty
-    private final String content;
+    private  String content;
     @JsonProperty
-    private final String name;
+    private  String name;
 
     private SystemMessage(Builder builder) {
         this.content = builder.content;
@@ -84,7 +88,7 @@ public final class SystemMessage implements Message {
 
     @JsonPOJOBuilder(withPrefix = "")
     @JsonIgnoreProperties(ignoreUnknown = true)
-    @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+    @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
     public static final class Builder {
 
         private String content;

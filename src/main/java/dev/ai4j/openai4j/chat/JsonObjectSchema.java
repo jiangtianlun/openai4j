@@ -3,28 +3,33 @@ package dev.ai4j.openai4j.chat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.*;
 
-@JsonDeserialize(builder = JsonObjectSchema.Builder.class)
+@Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+@NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class JsonObjectSchema extends JsonSchemaElement {
 
     @JsonProperty
-    private final String description;
+    private  String description;
     @JsonProperty
-    private final Map<String, JsonSchemaElement> properties;
+    private  Map<String, JsonSchemaElement> properties;
     @JsonProperty
-    private final List<String> required;
+    private  List<String> required;
     @JsonProperty("additionalProperties")
-    private final Boolean additionalProperties;
+    private  Boolean additionalProperties;
     @JsonProperty("$defs")
-    private final Map<String, JsonSchemaElement> definitions;
+    private  Map<String, JsonSchemaElement> definitions;
 
     public JsonObjectSchema(Builder builder) {
         super("object");
@@ -78,7 +83,7 @@ public class JsonObjectSchema extends JsonSchemaElement {
 
     @JsonPOJOBuilder(withPrefix = "")
     @JsonIgnoreProperties(ignoreUnknown = true)
-    @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+    @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
     public static class Builder {
 
         private String description;

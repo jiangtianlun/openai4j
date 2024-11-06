@@ -4,10 +4,13 @@ package dev.ai4j.openai4j.completion;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,19 +20,21 @@ import java.util.Objects;
 import static java.util.Collections.unmodifiableList;
 import static java.util.Collections.unmodifiableMap;
 
-@JsonDeserialize(builder = Logprobs.Builder.class)
+@Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+@NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public final class Logprobs {
 
     @JsonProperty
-    private final List<String> tokens;
+    private  List<String> tokens;
     @JsonProperty
-    private final List<Double> tokenLogprobs;
+    private  List<Double> tokenLogprobs;
     @JsonProperty
-    private final List<Map<String, Double>> topLogprobs;
+    private  List<Map<String, Double>> topLogprobs;
     @JsonProperty
-    private final List<Integer> textOffset;
+    private  List<Integer> textOffset;
 
     private Logprobs(Builder builder) {
         this.tokens = builder.tokens;
@@ -94,7 +99,7 @@ public final class Logprobs {
 
     @JsonPOJOBuilder(withPrefix = "")
     @JsonIgnoreProperties(ignoreUnknown = true)
-    @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+    @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
     public static final class Builder {
 
         private List<String> tokens;

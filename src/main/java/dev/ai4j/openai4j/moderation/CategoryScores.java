@@ -4,38 +4,43 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Objects;
 
-@JsonDeserialize(builder = CategoryScores.Builder.class)
+@Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+@NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public final class CategoryScores {
 
     @JsonProperty
-    private final Double hate;
+    private  Double hate;
 
     @JsonProperty("hate/threatening")
-    private final Double hateThreatening;
+    private  Double hateThreatening;
 
     @JsonProperty("self-harm")
-    private final Double selfHarm;
+    private  Double selfHarm;
 
     @JsonProperty
-    private final Double sexual;
+    private  Double sexual;
 
     @JsonProperty("sexual/minors")
-    private final Double sexualMinors;
+    private  Double sexualMinors;
 
     @JsonProperty
-    private final Double violence;
+    private  Double violence;
 
     @JsonProperty("violence/graphic")
-    private final Double violenceGraphic;
+    private  Double violenceGraphic;
 
     private CategoryScores(Builder builder) {
         this.hate = builder.hate;
@@ -124,7 +129,7 @@ public final class CategoryScores {
 
     @JsonPOJOBuilder(withPrefix = "")
     @JsonIgnoreProperties(ignoreUnknown = true)
-    @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+    @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
     public static final class Builder {
 
         private Double hate;

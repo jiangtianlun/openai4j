@@ -4,11 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import dev.ai4j.openai4j.shared.StreamOptions;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,55 +22,57 @@ import static java.util.Arrays.asList;
 import static java.util.Collections.unmodifiableList;
 import static java.util.Collections.unmodifiableMap;
 
-@JsonDeserialize(builder = ChatCompletionRequest.Builder.class)
+@Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+@NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public final class ChatCompletionRequest {
 
     @JsonProperty
-    private final String model;
+    private  String model;
     @JsonProperty
-    private final List<Message> messages;
+    private  List<Message> messages;
     @JsonProperty
-    private final Double temperature;
+    private  Double temperature;
     @JsonProperty
-    private final Double topP;
+    private  Double topP;
     @JsonProperty
-    private final Integer n;
+    private  Integer n;
     @JsonProperty
-    private final Boolean stream;
+    private  Boolean stream;
     @JsonProperty
-    private final StreamOptions streamOptions;
+    private  StreamOptions streamOptions;
     @JsonProperty
-    private final List<String> stop;
+    private  List<String> stop;
     @JsonProperty
-    private final Integer maxTokens;
+    private  Integer maxTokens;
     @JsonProperty
-    private final Integer maxCompletionTokens;
+    private  Integer maxCompletionTokens;
     @JsonProperty
-    private final Double presencePenalty;
+    private  Double presencePenalty;
     @JsonProperty
-    private final Double frequencyPenalty;
+    private  Double frequencyPenalty;
     @JsonProperty
-    private final Map<String, Integer> logitBias;
+    private  Map<String, Integer> logitBias;
     @JsonProperty
-    private final String user;
+    private  String user;
     @JsonProperty
-    private final ResponseFormat responseFormat;
+    private  ResponseFormat responseFormat;
     @JsonProperty
-    private final Integer seed;
+    private  Integer seed;
     @JsonProperty
-    private final List<Tool> tools;
+    private  List<Tool> tools;
     @JsonProperty
-    private final Object toolChoice;
+    private  Object toolChoice;
     @JsonProperty
-    private final Boolean parallelToolCalls;
-    @JsonProperty
-    @Deprecated
-    private final List<Function> functions;
+    private  Boolean parallelToolCalls;
     @JsonProperty
     @Deprecated
-    private final FunctionCall functionCall;
+    private  List<Function> functions;
+    @JsonProperty
+    @Deprecated
+    private  FunctionCall functionCall;
 
     private ChatCompletionRequest(Builder builder) {
         this.model = builder.model;
@@ -271,7 +275,7 @@ public final class ChatCompletionRequest {
 
     @JsonPOJOBuilder(withPrefix = "")
     @JsonIgnoreProperties(ignoreUnknown = true)
-    @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+    @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
     public static final class Builder {
 
         private String model = GPT_3_5_TURBO.toString();

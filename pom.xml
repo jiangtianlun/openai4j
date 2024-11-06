@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>dev.ai4j</groupId>
-    <artifactId>openai4j</artifactId>
+    <artifactId>openai4j-custom</artifactId>
     <version>0.23.0</version>
 
     <name>Java Client for OpenAI (ChatGPT)</name>
@@ -43,7 +43,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <retrofit.version>2.9.0</retrofit.version>
-        <okhttp.version>4.12.0</okhttp.version>
+        <okhttp.version>4.11.0</okhttp.version>
         <junit.version>5.9.3</junit.version>
     </properties>
 
@@ -64,8 +64,19 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.17.2</version>
+            <version>2.11.4</version>
         </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.11.4</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.11.4</version>
+        </dependency>
+
 
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
@@ -140,6 +151,14 @@
             <version>2.6.2</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
+
+
 
     </dependencies>
 

@@ -3,11 +3,14 @@ package dev.ai4j.openai4j.completion;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import dev.ai4j.openai4j.shared.StreamOptions;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 import java.util.Map;
@@ -17,45 +20,47 @@ import static dev.ai4j.openai4j.completion.CompletionModel.GPT_3_5_TURBO_INSTRUC
 import static java.util.Collections.unmodifiableList;
 import static java.util.Collections.unmodifiableMap;
 
-@JsonDeserialize(builder = CompletionRequest.Builder.class)
+@Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+@NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public final class CompletionRequest {
 
     @JsonProperty
-    private final String model;
+    private  String model;
     @JsonProperty
-    private final String prompt;
+    private  String prompt;
     @JsonProperty
-    private final String suffix;
+    private  String suffix;
     @JsonProperty
-    private final Integer maxTokens;
+    private  Integer maxTokens;
     @JsonProperty
-    private final Double temperature;
+    private  Double temperature;
     @JsonProperty
-    private final Double topP;
+    private  Double topP;
     @JsonProperty
-    private final Integer n;
+    private  Integer n;
     @JsonProperty
-    private final Boolean stream;
+    private  Boolean stream;
     @JsonProperty
-    private final StreamOptions streamOptions;
+    private  StreamOptions streamOptions;
     @JsonProperty
-    private final Integer logprobs;
+    private  Integer logprobs;
     @JsonProperty
-    private final Boolean echo;
+    private  Boolean echo;
     @JsonProperty
-    private final List<String> stop;
+    private  List<String> stop;
     @JsonProperty
-    private final Double presencePenalty;
+    private  Double presencePenalty;
     @JsonProperty
-    private final Double frequencyPenalty;
+    private  Double frequencyPenalty;
     @JsonProperty
-    private final Integer bestOf;
+    private  Integer bestOf;
     @JsonProperty
-    private final Map<String, Integer> logitBias;
+    private  Map<String, Integer> logitBias;
     @JsonProperty
-    private final String user;
+    private  String user;
 
     private CompletionRequest(Builder builder) {
         this.model = builder.model;
@@ -224,7 +229,7 @@ public final class CompletionRequest {
 
     @JsonPOJOBuilder(withPrefix = "")
     @JsonIgnoreProperties(ignoreUnknown = true)
-    @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+    @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
     public static final class Builder {
 
         private String model = GPT_3_5_TURBO_INSTRUCT.toString();

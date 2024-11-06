@@ -3,11 +3,14 @@ package dev.ai4j.openai4j.moderation;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import dev.ai4j.openai4j.embedding.EmbeddingResponse;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 import java.util.Objects;
@@ -15,15 +18,17 @@ import java.util.Objects;
 import static java.util.Collections.singletonList;
 import static java.util.Collections.unmodifiableList;
 
-@JsonDeserialize(builder = ModerationRequest.Builder.class)
+@Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+@NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ModerationRequest {
 
     @JsonProperty
-    private final String model;
+    private  String model;
     @JsonProperty
-    private final List<String> input;
+    private  List<String> input;
 
     private ModerationRequest(Builder builder) {
         this.model = builder.model;
@@ -72,7 +77,7 @@ public class ModerationRequest {
 
     @JsonPOJOBuilder(withPrefix = "")
     @JsonIgnoreProperties(ignoreUnknown = true)
-    @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+    @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
     public static final class Builder {
 
         private String model;
